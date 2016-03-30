@@ -63,14 +63,16 @@ class LogStash::Filters::Ip2user < LogStash::Filters::Base
 		end
 
 
-	elsif @action == "getuser" and event[@ipv4] != "-" and $ipv4[event[@ipv4]]
-		event["userID"] = $ipv4[event[@ipv4]]
+	elsif @action == "getuser" and event[@ipv4] != nil and $ipv4[event[@ipv4]] != nil
+		event[@username] = $ipv4[event[@ipv4]]
 
-	elsif @action == "getuser" and event[@ipv6] != "-" and $ipv6[event[@ipv6]]
-		event["userID"] = $ipv6[event[@ipv6]]
+	elsif @action == "getuser" and event[@ipv6] != nil and  $ipv6[event[@ipv6]] != nil
+		event[@username] = $ipv6[event[@ipv6]]
 
 	elsif @action == "getip" and event[@username] != nil 
-
+		$ipv4.select { |key,value| value == "id" }.each do |key,value|
+			
+		end
 	end	
 	if @debug == "true"
 		puts $ipv4	
