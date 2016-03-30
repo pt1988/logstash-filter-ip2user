@@ -1,4 +1,4 @@
-# Logstash Plugin
+# IP 2 User Logstash Plugin
 
 [![Build
 Status](http://build-eu-00.elastic.co/view/LS%20Plugins/view/LS%20Filters/job/logstash-plugin-filter-example-unit/badge/icon)](http://build-eu-00.elastic.co/view/LS%20Plugins/view/LS%20Filters/job/logstash-plugin-filter-example-unit/)
