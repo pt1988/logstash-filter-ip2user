@@ -47,7 +47,7 @@ class LogStash::Filters::Ip2user < LogStash::Filters::Base
 				elsif @action == "remove" 
 					$ipv4.delete(event[@ipv4])
 				end
-				#       event["ip2userv4_size"] = $ipv4.length
+			#       event["ip2userv4_size"] = $ipv4.length
 			end 
 			#check ipv6 parameter is exist?
 			if event[@ipv6] != "-"
@@ -56,10 +56,10 @@ class LogStash::Filters::Ip2user < LogStash::Filters::Base
 				elsif @action == "remove"
 				  $ipv6.delete(event[@ipv6])
 				end
-				#       event["ip2userv6_size"] = $ipv6.length 
+			#       event["ip2userv6_size"] = $ipv6.length 
 			end
 			ipaddress_status="ipv4.length #{$ipv4.length}\nipv6.length #{$ipv6.length}"
-			system("echo \"#{ipaddress_status}\" > \/dev\/shm\/logstash_ip")
+			#system("echo \"#{ipaddress_status}\" > \/dev\/shm\/logstash_ip")
 		end
 
 
@@ -70,9 +70,16 @@ class LogStash::Filters::Ip2user < LogStash::Filters::Base
 		event[@username] = $ipv6[event[@ipv6]]
 
 	elsif @action == "getip" and event[@username] != nil 
-		$ipv4.select { |key,value| value == "id" }.each do |key,value|
-			
+		allip=[]
+		$ipv4.select { |key,value| value == event[@username] }.each do |key,value|
+			allip.push(key)		
 		end
+		event["all_ipv4"]=allip
+		allip=[]
+		$ipv6.select { |key,value| value == event[@username] }.each do |key,value|
+			allip.push(key)		
+		end
+		event["all_ipv6"]=allip
 	end	
 	if @debug == "true"
 		puts $ipv4	
